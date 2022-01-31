@@ -7,16 +7,15 @@ import {
   View,
 } from 'react-native';
 import { Octokit } from 'octokit';
-import key from '../githubKey.txt';
 
 export const RetrieveCommits = () => {
   const [commits, setCommits] = useState([]);
-  const octokit = new Octokit({ auth: key }); //NEED TO HIDE THIS
+  const octokit = new Octokit({ auth: 'AUTH KEY GOES HERE' }); 
 
   const getCommits = useCallback(async () => {
     const owner = 'facebook';
     const repo = 'react-native';
-    const per_page = 5;
+    const per_page = 25;
 
     const getCommits = await octokit.request(
         `GET /repos/{owner}/{repo}/commits`, { owner, repo, per_page }
@@ -37,9 +36,9 @@ export const RetrieveCommits = () => {
         borderWidth: 1,
         flexDirection: 'column',
       }}>
-        <Text style={styles.item}>Username: {item.item.author.login}</Text>
-        <Text numberOfLines={1} style={styles.item}>Hash: {item.item.sha}</Text>
-        <Text numberOfLines={1} style={styles.item}>Message: {item.item.commit.message}</Text>
+        <Text style={styles.item}>Username: {item?.item?.author?.login}</Text>
+        <Text numberOfLines={1} style={styles.item}>Hash: {item?.item?.sha}</Text>
+        <Text numberOfLines={1} style={styles.item}>Message: {item?.item?.commit?.message}</Text>
       </View>
     )
   }
